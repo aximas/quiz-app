@@ -1,0 +1,34 @@
+body {
+    margin: 0;
+
+}
+
+.quiz {
+    margin: 0 auto;
+    width: 600px;
+}
+
+.quiz-questions-item__question, 
+.quiz-results-item__question {
+    margin-top: 10px;
+    margin-bottom: 20px;
+}
+
+.quiz-questions-item__answer, 
+.quiz-results-item__answer  {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.btn-restart {
+    display: block;
+}
+
+.quiz-indicator {
+    margin-top: 10px;
+}
+
+.quiz-controls {
+    margin-top: 10px;
+}

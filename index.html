@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="quiz" id="quiz">
+        <div class="quiz-questions" id="quiz-questions">
+            <div class="quiz-questions-item">
+                <div class="quiz-questions-item__question">
+                    Qestion №1
+                </div>
+                
+                <ul class="quiz-questions-item__answer">
+                    <li>
+                        <label>
+                            <input type="radio" name="q1">
+                            Answer 1
+                        </label>
+                    </li>
+                    <li>
+                        <label>
+                            <input type="radio" name="q1">
+                            Answer 2
+                        </label>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="quiz-results" id="quiz-results">
+            <div class="quiz-results-item__question">
+                Answers №1
+            </div>
+            
+            <ul class="quiz-results-item__answer">
+                <li>
+                    <label>
+                        <input type="radio" name="q1">
+                        Answer 1
+                    </label>
+                </li>
+                <li>
+                    <label>
+                        <input type="radio" name="q1">
+                        Answer 2
+                    </label>
+                </li>
+            </ul>
+        </div>
+
+        <div class="quiz-indicator" id="quiz-indicator">
+            1 / 10
+        </div>
+
+        <div class="quiz-controls">
+            <button class="btn-next" id="btn-next">
+                Next
+            </button>
+            <button class="btn-restart" id="btn-restart">
+                Restart
+            </button>
+        </div>
+
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
