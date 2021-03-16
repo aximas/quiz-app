@@ -32,3 +32,35 @@ body {
 .quiz-controls {
     margin-top: 10px;
 }
+
+.quiz-results {
+    display: none;
+}
+
+.btn-restart {
+    display: none;
+}
+
+
+.questions--hidden {
+    display: none;
+}
+.incator--hidden {
+    display: none;
+}
+.results--visible {
+    display: block;
+}
+.btn-next--hidden {
+    display: none;
+}
+.btn-restart--visible  {
+    display: block;
+}
+
+.answer--invalid {
+    color: red
+}
+.answer--valid {
+    color: green
+}
