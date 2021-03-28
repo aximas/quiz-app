@@ -45,7 +45,7 @@ body {
 .questions--hidden {
     display: none;
 }
-.incator--hidden {
+.indicator--hidden {
     display: none;
 }
 .results--visible {
@@ -63,4 +63,8 @@ body {
 }
 .answer--valid {
     color: green
+}
+
+.quiz-results-counter {
+    margin-top: 20px;
 }

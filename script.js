@@ -69,10 +69,12 @@ const Data = [
 
 let localResults = {};
 
+
 const quiz = document.getElementById('quiz'),
     quizQuestions = document.getElementById('quiz-questions'),
     quizIndicator = document.getElementById('quiz-indicator'),
     quizResults = document.getElementById('quiz-results'),
+    quizResultsCounter = document.getElementById('quiz-results-counter')
     btnNext = document.getElementById('btn-next'),
     btnRestart = document.getElementById('btn-restart');
 
@@ -104,13 +106,16 @@ const renderQuestions = (index) => {
     `;
 }
 
+
 const renderResults = () => {
     let content = '';
-
+   
     const getClassName = (answer, questionIndex) => {
         let classname = '';
+    
         if (!answer.correct && answer.id === localResults[questionIndex]) {
             classname = 'answer--invalid';
+         
         } else if (answer.correct) {
             classname = 'answer--valid';
         }
@@ -121,9 +126,8 @@ const renderResults = () => {
     const getAnswers = (questionIndex) =>  Data[questionIndex].answers
     .map((answer) =>  ` <li class="${getClassName(answer, questionIndex)}">  ${answer.value} </li>`)
         .join('');
-    
 
-    Data.forEach((question, index) => {
+        Data.forEach((question, index) => {
         content += `
         <div class="quiz-results-item__question">
            ${question.question}
@@ -132,12 +136,49 @@ const renderResults = () => {
         `;
     });
 
+
     quizResults.innerHTML = content;
+}
+
+const renderResultsCount = () => {
+    let content = '';
+
+     const getAnsCount= (answer, questionIndex) => {
+        let trueAnsCount = 0;
+        if (!answer.correct && answer.id === localResults[questionIndex]) {
+            trueAnsCount -= 1;
+        } else if (answer.correct) {
+            trueAnsCount +=1
+        }
+        return trueAnsCount;
+    }
+
+     const getAnswersNum = (questionIndex) =>  Data[questionIndex].answers
+    .map((answer) => getAnsCount(answer, questionIndex))
+    .reduce((sum, current) => sum + current);
+
+      var count = 1;
+
+        Data.forEach((question, index) => {
+        // content += `
+            //  +getAnswersNum(index)
+        // `;
+        console.log(getAnswersNum(index))
+        if (getAnswersNum(index) == 1) {
+            count++
+        }
+    });
+    var countChanged = count - 1;
+     content += `Всего вопросов ${Data.length}<br>
+                Правильных ответов ${countChanged}`
+     console.log(countChanged);
+
+     quizResultsCounter.innerHTML = content;
+
 }
 
 const renderIndicator = (currentStep) => {
     quizIndicator.innerHTML = `${currentStep}/${Data.length}`;
-
 };
 
 quiz.addEventListener('change', (event) => {
@@ -145,7 +186,6 @@ quiz.addEventListener('change', (event) => {
         console.log('inputed'); 
         localResults[event.target.name] = event.target.value;
         btnNext.disabled = false;
-
         console.log(localResults);
        }
     });
@@ -156,11 +196,14 @@ quiz.addEventListener('click', (event) => {
     
     if (Data.length === nextQuestionIndex) {
         quizQuestions.classList.add('questions--hidden')
-        quizIndicator.classList.add('incator--hidden')
+        quizIndicator.classList.add('indicator--hidden')
         quizResults.classList.add('results--visible')
         btnNext.classList.add('btn-next--hidden')
-        btnRestart.classList.add('btn-restart--visible')
+        setTimeout( () => {
+            btnRestart.classList.add('btn-restart--visible')
+        }, 2000 )
         renderResults();
+        renderResultsCount();
     } else { 
         renderQuestions(nextQuestionIndex);
     }
@@ -171,7 +214,7 @@ quiz.addEventListener('click', (event) => {
          quizResults.innerHTML = '';
          let localResults = {};
         quizQuestions.classList.remove('questions--hidden');
-        quizIndicator.classList.remove('incator--hidden');
+        quizIndicator.classList.remove('indicator--hidden');
         quizResults.classList.remove('results--visible');
         btnNext.classList.remove('btn-next--hidden');
         btnRestart.classList.remove('btn-restart--visible');
@@ -179,5 +222,5 @@ quiz.addEventListener('click', (event) => {
 
    }
 });
-
 renderQuestions(0);
+
