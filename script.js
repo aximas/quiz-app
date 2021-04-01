@@ -74,12 +74,14 @@ const quiz = document.getElementById('quiz'),
     quizQuestions = document.getElementById('quiz-questions'),
     quizIndicator = document.getElementById('quiz-indicator'),
     quizResults = document.getElementById('quiz-results'),
-    quizResultsCounter = document.getElementById('quiz-results-counter')
+    quizResultsCounter = document.getElementById('quiz-results-counter'),
+    progressBar = document.getElementById('progress-bar'),
     btnNext = document.getElementById('btn-next'),
     btnRestart = document.getElementById('btn-restart');
 
 const renderQuestions = (index) => {
     renderIndicator(index + 1);
+    renderProgressbar(index + 1);
     quizQuestions.dataset.currentStep = index;
     const renderAnswers = () => Data[index].answers
           .map((answer) => 
@@ -91,7 +93,8 @@ const renderQuestions = (index) => {
                 </li>
             `)
             .join('');
-    
+
+  
 
     quizQuestions.innerHTML =`
         <div class="quiz-questions-item">
@@ -160,9 +163,6 @@ const renderResultsCount = () => {
       var count = 1;
 
         Data.forEach((question, index) => {
-        // content += `
-            //  +getAnswersNum(index)
-        // `;
         console.log(getAnswersNum(index))
         if (getAnswersNum(index) == 1) {
             count++
@@ -178,8 +178,22 @@ const renderResultsCount = () => {
 }
 
 const renderIndicator = (currentStep) => {
-    quizIndicator.innerHTML = `${currentStep}/${Data.length}`;
+    quizIndicator.innerHTML = `${currentStep} - вопрос из ${Data.length}`;
 };
+
+const renderProgressbar = (currentStep) => {
+   let percent = ((currentStep/(Data.length)).toFixed(2)) * 100;
+   let backgProgressStart = '#ffa200';
+   let backgProgressFinish = '#00a03e';
+   progressBar.style.setProperty('--elem-width', percent + '%');
+    progressBar.innerHTML = `<p> ${percent}% </p>`
+    if (percent < 100) {
+        progressBar.style.setProperty('--elem-backg', backgProgressStart);
+    }
+    else {
+        progressBar.style.setProperty('--elem-backg', backgProgressFinish);
+    }
+}
 
 quiz.addEventListener('change', (event) => {
     if (event.target.classList.contains('answer-input')) {
@@ -198,6 +212,7 @@ quiz.addEventListener('click', (event) => {
         quizQuestions.classList.add('questions--hidden')
         quizIndicator.classList.add('indicator--hidden')
         quizResults.classList.add('results--visible')
+        quizResultsCounter.classList.add('results--visible')
         btnNext.classList.add('btn-next--hidden')
         setTimeout( () => {
             btnRestart.classList.add('btn-restart--visible')
@@ -212,10 +227,12 @@ quiz.addEventListener('click', (event) => {
    }
    if (event.target.classList.contains('btn-restart')) {
          quizResults.innerHTML = '';
+         quizResultsCounter.innerHTML = '';
          let localResults = {};
         quizQuestions.classList.remove('questions--hidden');
         quizIndicator.classList.remove('indicator--hidden');
         quizResults.classList.remove('results--visible');
+        quizResultsCounter.classList.remove('results--visible');
         btnNext.classList.remove('btn-next--hidden');
         btnRestart.classList.remove('btn-restart--visible');
         renderQuestions(0);
